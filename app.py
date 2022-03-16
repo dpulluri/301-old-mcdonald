@@ -54,13 +54,13 @@ app.layout = html.Div(children=[
              [Input('options-drop', 'value')])
 def make_figure(varname):
     mygraphtitle = f'Hospitals of {varname}'
-    mycolorscale = 'ylorrd' # Note: The error message will list possible color scales.
+    mycolorscale = 'Blues' # Note: The error message will list possible color scales.
     mycolorbartitle = "Count"
 
     data=go.Choropleth(
         locations=df['STATE'], # Spatial coordinates
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[varname], # Data to be color-coded
+        z = df[varname].astype(int), # Data to be color-coded
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
