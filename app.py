@@ -62,7 +62,7 @@ def make_figure(varname):
     data=go.Choropleth(
         locations=df['STATE'], # Spatial coordinates
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[varname].astype(int), # Data to be color-coded
+        z = df[varname], # Data to be color-coded
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
