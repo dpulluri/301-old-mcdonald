@@ -12,15 +12,13 @@ tabtitle = 'Old McDonald'
 sourceurl = 'https://plot.ly/python/choropleth-maps/'
 githublink = 'https://github.com/austinlasseter/agriculture-exports-map'
 # here's the list of possible columns to choose from.
-list_of_columns =['total exports', 'beef', 'pork', 'poultry',
-       'dairy', 'fruits fresh', 'fruits proc', 'total fruits', 'veggies fresh',
-       'veggies proc', 'total veggies', 'corn', 'wheat', 'cotton']
+list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
 
 
 ########## Set up the chart
 
 import pandas as pd
-df = pd.read_csv('assets/usa-2011-agriculture.csv')
+df = pd.read_csv('assets/Hospitals.csv')
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -31,14 +29,14 @@ app.title=tabtitle
 ########### Set up the layout
 
 app.layout = html.Div(children=[
-    html.H1('2011 Agricultural Exports, by State'),
+    html.H1('Hospitals, by State'),
     html.Div([
         html.Div([
-                html.H6('Select a variable for analysis:'),
+                html.H6('Select the type of hospital for analysis:'),
                 dcc.Dropdown(
                     id='options-drop',
                     options=[{'label': i, 'value': i} for i in list_of_columns],
-                    value='corn'
+                    value='PSYCHIATRIC'
                 ),
         ], className='two columns'),
         html.Div([dcc.Graph(id='figure-1'),
@@ -55,14 +53,14 @@ app.layout = html.Div(children=[
 @app.callback(Output('figure-1', 'figure'),
              [Input('options-drop', 'value')])
 def make_figure(varname):
-    mygraphtitle = f'Exports of {varname} in 2011'
+    mygraphtitle = f'Hospitals of {varname}'
     mycolorscale = 'ylorrd' # Note: The error message will list possible color scales.
-    mycolorbartitle = "Millions USD"
+    mycolorbartitle = "Count"
 
     data=go.Choropleth(
-        locations=df['code'], # Spatial coordinates
+        locations=df['state'], # Spatial coordinates
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[varname].astype(float), # Data to be color-coded
+        z = df[varname], # Data to be color-coded
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
