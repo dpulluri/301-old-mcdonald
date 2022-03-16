@@ -12,7 +12,8 @@ tabtitle = 'Old McDonald'
 sourceurl = 'https://plot.ly/python/choropleth-maps/'
 githublink = 'https://github.com/austinlasseter/agriculture-exports-map'
 # here's the list of possible columns to choose from.
-list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
+#list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
+list_of_columns =['TYPE', 'STATUS', 'TRAUMA', 'HELIPAD']
 
 
 ########## Set up the chart
@@ -30,6 +31,7 @@ app.title=tabtitle
 
 app.layout = html.Div(children=[
     html.H1('Hospitals, by State'),
+    html.H1(),
     html.Div([
         html.Div([
                 html.H6('Select the type of hospital for analysis:'),
@@ -60,7 +62,7 @@ def make_figure(varname):
     data=go.Choropleth(
         locations=df['STATE'], # Spatial coordinates
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[df["TYPE"] == varname]["TYPE"].count().astype(int), # Data to be color-coded
+        z = df[varname].astype(int), # Data to be color-coded
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
