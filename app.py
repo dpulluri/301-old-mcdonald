@@ -56,11 +56,11 @@ def make_figure(varname):
     mygraphtitle = f'Hospitals of {varname}'
     mycolorscale = 'Blues' # Note: The error message will list possible color scales.
     mycolorbartitle = "Count"
-
+    filtered_df = df[df["TYPE"] == varname]["STATE"].value_counts().to_frame('value')
     data=go.Choropleth(
-        locations=df['STATE'], # Spatial coordinates
+        locations=filtered_df.index,
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[df["TYPE"] == varname]["STATE"].value_counts(normalize=True), # Data to be color-coded
+        z = filtered_df['value'], 
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
