@@ -12,8 +12,8 @@ tabtitle = 'Old McDonald'
 sourceurl = 'https://plot.ly/python/choropleth-maps/'
 githublink = 'https://github.com/austinlasseter/agriculture-exports-map'
 # here's the list of possible columns to choose from.
-#list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
-list_of_columns =['TYPE', 'STATUS', 'TRAUMA', 'HELIPAD']
+list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
+#list_of_columns =['TYPE', 'STATUS', 'TRAUMA', 'HELIPAD']
 
 
 ########## Set up the chart
@@ -26,12 +26,10 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title=tabtitle
-hospitalCount = df[df["TYPE"] == "GENERAL ACUTE CARE"]["TYPE"].count()
 ########### Set up the layout
 
 app.layout = html.Div(children=[
     html.H1('Hospitals, by State'),
-    html.H1(hospitalCount),
     html.Div([
         html.Div([
                 html.H6('Select the type of hospital for analysis:'),
@@ -62,7 +60,7 @@ def make_figure(varname):
     data=go.Choropleth(
         locations=df['STATE'], # Spatial coordinates
         locationmode = 'USA-states', # set of locations match entries in `locations`
-        z = df[varname], # Data to be color-coded
+        z = df[df["TYPE"] == varname]["STATE"].value_counts(), # Data to be color-coded
         colorscale = mycolorscale,
         colorbar_title = mycolorbartitle,
     )
