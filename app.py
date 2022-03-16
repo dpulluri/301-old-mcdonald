@@ -10,7 +10,7 @@ import pandas as pd
 
 tabtitle = 'Old McDonald'
 sourceurl = 'https://plot.ly/python/choropleth-maps/'
-githublink = 'https://github.com/austinlasseter/agriculture-exports-map'
+githublink = 'https://github.com/dpulluri/301-old-mcdonald'
 # here's the list of possible columns to choose from.
 list_of_columns =['GENERAL ACUTE CARE', 'CRITICAL ACCESS', 'LONG TERM CARE', 'PSYCHIATRIC','MILITARY']
 #list_of_columns =['TYPE', 'STATUS', 'TRAUMA', 'HELIPAD']
