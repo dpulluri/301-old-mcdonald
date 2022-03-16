@@ -26,12 +26,12 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title=tabtitle
-
+hospitalCount = df[df["TYPE"] == "GENERAL ACUTE CARE"]["TYPE"].count()
 ########### Set up the layout
 
 app.layout = html.Div(children=[
     html.H1('Hospitals, by State'),
-    html.H1(),
+    html.H1(hospitalCount),
     html.Div([
         html.Div([
                 html.H6('Select the type of hospital for analysis:'),
